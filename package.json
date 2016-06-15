@@ -1,0 +1,17 @@
+{
+  "name": "webapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "clean": "rimraf ./dist && mkdir dist",
+    "prebuild": "echo run before",
+    "build": "echo run main",
+    "postbuild": "echo run after"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rimraf": "^2.5.2"
+  }
+}
