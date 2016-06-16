@@ -33,9 +33,9 @@ var webpackConfig = {
   },
   plugins:[
     new AssetsPlugin({
-      filename: TARGET + '/webpack.assets.js',
+      filename: 'webpack.assets.js',
       processOutput: function(assets) {
-        return 'window.WEBPACK_ASSETS = ' + JSON.stringify(assets);
+        return 'module.exports = ' + JSON.stringify(assets);
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({

@@ -1,9 +1,10 @@
 var gulp = require('gulp');
 var replace = require('gulp-replace-task');
-var assets = require('webpack.assets');
+var WebpackAssets = require('./webpack.assets.js');
 
 gulp.task('default', function() {
-  console.log("hello,gulp!");
+  console.log(Object.keys(WebpackAssets));
+  //todo 使用keys循环替换所有资源路径
 });
 
 gulp.task('replace', function(){
@@ -11,9 +12,19 @@ gulp.task('replace', function(){
     .pipe(replace({
       patterns: [
         {
-          match: /vendors-(.*?)\.js/g,
+          match: /js\/vendors-(.*?)\.js/g,
           replacement: function() {
-            return assets.window.WEBPACK_ASSETS['vendors'].js;
+            return WebpackAssets['vendors'].js;
+          }
+        }
+      ]
+    }))
+    .pipe(replace({
+      patterns: [
+        {
+          match: /js\/home-(.*?)\.js/g,
+          replacement: function() {
+            return WebpackAssets['home'].js;
           }
         }
       ]
