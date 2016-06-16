@@ -1,0 +1,1 @@
+window.WEBPACK_ASSETS = {"home":{"js":"js/home-bfcb8ab90.js","css":"css/home.css"},"subPage":{"js":"js/subPage-bfcb8ab90.js"},"vendors":{"js":"js/vendors-bfcb8ab90.js"}}
