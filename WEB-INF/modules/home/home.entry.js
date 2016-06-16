@@ -1,2 +1,2 @@
 require("./home.less");
-document.write("hello,welcome back webpack!");
+document.write("hello,welcome back webpack!!");

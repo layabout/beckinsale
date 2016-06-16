@@ -10,6 +10,7 @@ npm-debug.log*
 build
 dist
 public
+webpack.assets.js
 
 # Dependency directory
 node_modules

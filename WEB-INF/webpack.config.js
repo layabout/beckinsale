@@ -16,7 +16,7 @@ var webpackConfig = {
   entry: entries,
   output: {
     path: path.join(__dirname, TARGET),
-    filename: 'js/[name]-[hash:9].js',
+    filename: 'js/[name]-[hash].js',
     chunkFilename: 'js/[id].[chunkhash].js'
   },
   module: {
