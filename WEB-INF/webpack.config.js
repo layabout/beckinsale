@@ -9,6 +9,9 @@ var entries = getEntry('modules/**/*.entry.js', 'modules/');
 
 var chunks = Object.keys(entries);
 
+//剥离第三方库文件
+entries['lib'] = ['jquery'];
+
 //发布目录
 var TARGET = '../public';
 
@@ -16,8 +19,9 @@ var webpackConfig = {
   entry: entries,
   output: {
     path: path.join(__dirname, TARGET),
-    filename: 'js/[name]-[hash].js',
-    chunkFilename: 'js/[id].[chunkhash].js'
+    publicPath: 'public/',
+    filename: 'js/[name]-[chunkhash:8].js',
+    chunkFilename: 'js/[id].[chunkhash:8].js'
   },
   module: {
     loaders: [
@@ -43,7 +47,15 @@ var webpackConfig = {
       chunks: chunks,
       minChunks: 3
     }),
-    new ExtractTextPlugin( "css/[name].css")
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'lib'
+    }),
+    new ExtractTextPlugin( "css/[name].css"),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    })
   ]
 }
 

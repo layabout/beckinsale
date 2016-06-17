@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf ../public/*"
+    "clean": "rimraf ../public/*",
+    "updateAssetsUrl": "gulp updateAssetsUrl",
+
+    "prebuild": "npm run clean",
+    "build": "webpack --progress --colors --display-error-details",
+    "postbuild": "npm run updateAssetsUrl"
   },
   "author": "ruby",
   "license": "ISC",
@@ -15,6 +20,7 @@
     "glob": "^7.0.3",
     "gulp": "^3.9.1",
     "gulp-replace-task": "^0.11.0",
+    "jquery": "^1.12.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "rimraf": "^2.5.2",

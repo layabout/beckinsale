@@ -3,31 +3,26 @@ var replace = require('gulp-replace-task');
 var WebpackAssets = require('./webpack.assets.js');
 
 gulp.task('default', function() {
-  console.log(Object.keys(WebpackAssets));
-  //todo 使用keys循环替换所有资源路径
+  console.log("default task...");
 });
 
-gulp.task('replace', function(){
+gulp.task('updateAssetsUrl', function() {
+  var replaceTasks = [];
+  var assetsKeys = Object.keys( WebpackAssets );
+  assetsKeys.forEach(function(flag) {
+    eval("var pattern = /public\\/js\\/"+ flag +"-(.*?)\\.js/g");
+    var conf = {
+      match: pattern,
+      replacement: function() {
+        return WebpackAssets[flag].js;
+      }
+    }
+    replaceTasks.push(conf);
+  });
+
   gulp.src('templates/**/*.html')
-    .pipe(replace({
-      patterns: [
-        {
-          match: /js\/vendors-(.*?)\.js/g,
-          replacement: function() {
-            return WebpackAssets['vendors'].js;
-          }
-        }
-      ]
-    }))
-    .pipe(replace({
-      patterns: [
-        {
-          match: /js\/home-(.*?)\.js/g,
-          replacement: function() {
-            return WebpackAssets['home'].js;
-          }
-        }
-      ]
-    }))
-    .pipe(gulp.dest('templates'));
+      .pipe(replace({
+        patterns: replaceTasks
+      }))
+      .pipe(gulp.dest('templates'));
 });
