@@ -1,1 +1,1 @@
-module.exports = {"index":{"js":"public/js/index-496cd0e3.js","css":"public/css/index.css"},"lib":{"js":"public/js/lib-8cbf617d.js"},"subPage":{"js":"public/js/subPage-3a97ae13.js"},"vendors":{"js":"public/js/vendors-999986c5.js"}}
+module.exports = {"index":{"js":"public/js/index-d3c40d8c.js","css":"public/css/index.css"},"subPage":{"js":"public/js/subPage-4276e0a6.js"},"vendors":{"js":"public/js/vendors-999986c5.js"}}

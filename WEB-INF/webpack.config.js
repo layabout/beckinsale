@@ -25,14 +25,9 @@ var webpackConfig = {
   },
   module: {
     loaders: [
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
-      },
-      {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
-      }
+      { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') },
+      { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') },
+      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=img/[hash].[ext]' }
     ]
   },
   plugins:[
@@ -56,7 +51,14 @@ var webpackConfig = {
       jQuery: 'jquery',
       'window.jQuery': 'jquery'
     })
-  ]
+  ],
+  devServer: {
+   contentBase: '../',
+   host: 'localhost',
+   port: 8080,
+   inline: true,
+   hot: true,
+ }
 }
 
 module.exports = webpackConfig;

@@ -4,6 +4,8 @@ require("./strength");
 
 document.write("hello,welcome back webpack!!");
 $("#hello").html("what a wondful world!");
+$("#img01").attr('src',require('./fruit.jpg'));
+
 var md = require("../common/a");
 new md();
 $("#asyncButton").on("click",function(){
