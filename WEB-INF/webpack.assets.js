@@ -1,1 +1,0 @@
-module.exports = {"index":{"js":"public/js/index-d3c40d8c.js","css":"public/css/index.css"},"subPage":{"js":"public/js/subPage-4276e0a6.js"},"vendors":{"js":"public/js/vendors-999986c5.js"}}

@@ -13,21 +13,22 @@ var chunks = Object.keys(entries);
 entries['lib'] = ['jquery'];
 
 //发布目录
-var TARGET = '../public';
+var TARGET = 'templates/assets';
 
 var webpackConfig = {
   entry: entries,
   output: {
     path: path.join(__dirname, TARGET),
-    publicPath: 'public/',
-    filename: 'js/[name]-[chunkhash:8].js',
-    chunkFilename: 'js/[id].[chunkhash:8].js'
+    publicPath:'/assets/',
+    filename: 'js/[name].js',
+    chunkFilename: 'js/[id].chunk.js'
   },
   module: {
     loaders: [
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') },
       { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') },
-      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=img/[hash].[ext]' }
+      { test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192&name=img/[hash].[ext]' },
+      { test: /\.html$/, loader: "raw-loader" }
     ]
   },
   plugins:[
@@ -50,15 +51,11 @@ var webpackConfig = {
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery'
+    }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
     })
-  ],
-  devServer: {
-   contentBase: '../',
-   host: 'localhost',
-   port: 8080,
-   inline: true,
-   hot: true,
- }
+  ]
 }
 
 module.exports = webpackConfig;
