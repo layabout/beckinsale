@@ -13,26 +13,28 @@ var chunks = Object.keys(entries);
 entries['lib'] = ['jquery'];
 
 //build path
-var TARGET = '../templates/assets';
+var TARGET = '../../assets';
 
 var webpackConfig = {
   entry: entries,
   output: {
     path: path.join(__dirname, TARGET),
     publicPath:'/assets/',
-    filename: 'js/[name].js',
-    chunkFilename: 'js/[id].chunk.js'
+    filename: 'js/[name]-[chunkhash:12].js',
+    chunkFilename: 'js/[id].chunk-[chunkhash:12].js'
   },
   module: {
     loaders: [
       { test: /\.css$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') },
       { test: /\.less$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader') },
-      { test: /\.(png|jpg|jpeg)$/, loader: 'url-loader?limit=10240&name=img/[name].[ext]' },
-      { test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader?name=fonts/[name].[ext]' },
-      { test: /\.html$/, loader: "raw-loader" }
+      { test: /\.(png|jpg|jpeg)$/, loader: 'url-loader?limit=10240&name=img/[hash].[ext]' },
+      { test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader?name=fonts/[name].[ext]' }
     ]
   },
   plugins:[
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
     new AssetsPlugin({
       filename: 'webpack.assets.js',
       processOutput: function(assets) {
@@ -48,25 +50,21 @@ var webpackConfig = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'lib'
     }),
-    new ExtractTextPlugin( "css/[name].css"),
+    new ExtractTextPlugin( "css/[name]-[contenthash:12].css"),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
       'window.jQuery': 'jquery'
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      },
+      mangle: {
+        except: ['$', 'exports', 'require']
+      }
     })
-  ],
-  devServer: {
-    contentBase: '../templates',
-    host: 'localhost',
-    port: 3000
-    // proxy: {
-    //   '/api/*': {
-    //     target: 'http://localhost:8080',
-    //     secure: false
-    //   }
-    // }
-  },
-  devtool: 'source-map'
+  ]
 }
 
 module.exports = webpackConfig;

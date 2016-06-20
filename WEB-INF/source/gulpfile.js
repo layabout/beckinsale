@@ -2,33 +2,13 @@ var gulp = require('gulp');
 var path = require('path');
 var replace = require('gulp-replace-task');
 var tap = require('gulp-tap');
+var imagemin = require('gulp-imagemin');
 var WebpackAssets = require('./webpack.assets.js');
 
 var htmlFileName;
 
 gulp.task('default', function() {
   console.log("default task...");
-});
-
-gulp.task('updateAssetsUrl', function() {
-  var replaceTasks = [];
-  var assetsKeys = Object.keys( WebpackAssets );
-  assetsKeys.forEach(function(flag) {
-    eval("var pattern = /\\/assets\\/js\\/"+ flag +"(.*?)\\.js/g");
-    var conf = {
-      match: pattern,
-      replacement: function() {
-        return WebpackAssets[flag].js;
-      }
-    }
-    replaceTasks.push(conf);
-  });
-
-  gulp.src('../templates/**/*.html')
-      .pipe(replace({
-        patterns: replaceTasks
-      }))
-      .pipe(gulp.dest('../templates'));
 });
 
 gulp.task('inject:assets', function() {
@@ -89,4 +69,10 @@ gulp.task('inject:assets', function() {
       ]
     }))
     .pipe(gulp.dest('../templates'));
+});
+
+gulp.task('imagemin', function() {
+  gulp.src('../../assets/img/*')
+    .pipe(imagemin())
+    .pipe(gulp.dest('../../assets/img'));
 });
